@@ -46,5 +46,4 @@ while deposited_money > 0:               # this while loop makes sure that the u
     elif play != "" and play != "quit":             # this elif makes sure teh user press enter or types quit
         print("Please press enter to play a round or type 'quit'.")
 
-
 print("Thank you for playing.")         # this thanks the player for playing
