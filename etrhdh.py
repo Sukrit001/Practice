@@ -1,24 +1,93 @@
-import random
+# Supermarket Till Program
 
-animals = random.choice(["zebra", "horse", "donkey", "unicorn"])
+# Item list (easy to edit later)
+items = {
+    "apple": 0.80,
+    "bread": 2.50,
+    "milk": 1.90,
+    "eggs": 3.20,
+    "cheese": 4.00,
+    "banana": 0.50,
+    "chicken": 7.50,
+    "rice": 2.00,
+    "pasta": 1.80,
+    "juice": 2.20
+}
 
-print("""Lucky Unicorn
-=============""")
-deposited_money = 0
-while True:
+cart = {}
+total_cost = 0
 
-    deposited_money = int(input("\nHow much money would you like to deposit, min $1 and max $10. "))
+print("Welcome to the Supermarket Till!")
+start = input("Are you ready to start shopping? (yes/no): ").lower()
 
-    if deposited_money >= 1 and deposited_money <= 10:
-        play = input("Press Enter to play a round, this will cost $1? ")
-        if play == "":
+if start != "yes":
+    print("Goodbye!")
+else:
+    while True:
+        print("\nAvailable items:")
+        for item, price in items.items():
+            print(f"{item.title()} - ${price:.2f}")
+
+        choice = input("\nEnter the item you want to buy: ").lower()
+
+        if choice not in items:
+            print("Invalid item. Please choose from the list.")
+            continue
+
+        try:
+            quantity = int(input("How many would you like? "))
+            if quantity <= 0:
+                print("Quantity must be greater than 0.")
+                continue
+        except ValueError:
+            print("Please enter a valid number.")
+            continue
+
+        cost = items[choice] * quantity
+        total_cost += cost
+
+        # Add to cart
+        if choice in cart:
+            cart[choice]["quantity"] += quantity
+            cart[choice]["cost"] += cost
+        else:
+            cart[choice] = {"quantity": quantity, "cost": cost}
+
+        print(f"{quantity} x {choice} = ${cost:.2f}")
+        print(f"Running total: ${total_cost:.2f}")
+
+        more = input("Do you want to buy more items? (yes/no): ").lower()
+        if more != "yes":
             break
-        elif play != "":
-            print("Please press enter to play a round.")
 
-    else:
-        print("Plese try again and deposit the right amount of money. ")
-while True:        
-    print("Round starting...")
-    print(f"The computer chose {animals}")
-    break
+    # Print receipt
+    print("\n--- Receipt ---")
+    for item, details in cart.items():
+        print(f"{item.title()} x {details['quantity']} = ${details['cost']:.2f}")
+
+    print(f"\nTotal to pay: ${total_cost:.2f}")
+    print("Thank you for shopping!")
+
+
+
+
+
+
+
+items = {
+    "apple": 0.80,
+    "bread": 2.50,
+    "milk": 1.90,
+    "eggs": 3.20,
+    "cheese": 4.00,
+    "banana": 0.50,
+    "rice": 2.00,
+    "pasta": 1.80,
+    "juice": 2.20,
+    "chicken": 6.70,
+}
+
+cart = {}
+total_cost = 0
+
+print (items)
